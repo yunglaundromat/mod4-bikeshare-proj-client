@@ -3,15 +3,20 @@ import { Form } from 'semantic-ui-react'
 
 class CityForm extends React.Component {
 
+  onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
   listCities() {
-    return this.props.bikeShareNetworks.map(network => ({key:`${network.id}`, text: `${network.location.city}`, value: `${network.location.city}`}))
+    const citiesArray = this.props.bikeShareNetworks.map(network => network.location.city).filter( this.onlyUnique ).sort()
+    return citiesArray.map(city => ({key:`${city}`, text: `${city}`, value: `${city}`}))
   }
 
   render() {
     return (
       <Form>
         <Form.Group widths='equal'>
-          <Form.Select fluid label='Destination' options={this.listCities()} placeholder='Pick a city!' />
+          <Form.Select onChange={(e, target) => this.props.onCityClick(e, target)} fluid label='Destination' options={this.listCities()} placeholder='Pick a city!' />
         </Form.Group>
       </Form>
     )
