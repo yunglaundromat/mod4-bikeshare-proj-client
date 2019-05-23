@@ -9,8 +9,11 @@ const API = 'https://api.citybik.es/v2/networks'
 class App extends React.Component {
 
   state={
-    bikeShareNetworks: []
+    bikeShareNetworks: [],
+    activeItem: 'home'
   }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   componentDidMount() {
     fetch(API)
@@ -23,7 +26,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <NavBar />
+        <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
         {/* <NetworkContainer />
          <UserProfile /> */}
       </div>
