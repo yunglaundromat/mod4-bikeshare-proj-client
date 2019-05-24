@@ -16,7 +16,7 @@ class CityForm extends React.Component {
     return (
       <Form>
         <Form.Group widths='equal'>
-          <Form.Select onChange={(e, target) => this.props.onCityClick(e, target)} fluid label='Destination' options={this.listCities()} placeholder='Pick a city!' />
+          <Form.Select onChange={(e, target) => this.props.onCityClick(e, target)} fluid label='Destination' options={this.listCities()} placeholder='Find a bike sharing network by city!' />
         </Form.Group>
       </Form>
     )

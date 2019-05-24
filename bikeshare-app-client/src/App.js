@@ -8,7 +8,6 @@ const API = 'https://api.citybik.es/v2/networks'
 
 class App extends React.Component {
 
-
   state={
     bikeShareNetworks: [],
     activeItem: 'home'

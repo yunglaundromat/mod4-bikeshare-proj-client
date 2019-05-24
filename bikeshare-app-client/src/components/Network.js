@@ -1,17 +1,27 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Button, Icon, Image, Item, Label } from 'semantic-ui-react'
 
 class Network extends React.Component {
   render() {
     return (
-    <Card>
-      <Card.Content header={this.props.network.name} />
-      <Card.Content description={this.props.network.name} />
-      <Card.Content extra>
-        <Icon name='copyright outline' />
-        {this.props.network.company[0]}
-      </Card.Content>
-    </Card>
+    <Item.Group divided>
+      <Item>
+        <Item.Content>
+          <Item.Header as='a'>{this.props.selectedNetwork.name}</Item.Header>
+          <Item.Meta>
+            <span>{this.props.selectedNetwork.company}</span>
+          </Item.Meta>
+          <Item.Description></Item.Description>
+          <Item.Extra>
+            <Button primary>
+              Add this bike share network to my favorites!
+              <Icon name='right chevron' />
+            </Button>
+          </Item.Extra>
+        </Item.Content>
+      </Item>
+    </Item.Group>
+
     )
   }
 }
