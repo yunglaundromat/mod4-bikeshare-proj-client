@@ -13,8 +13,10 @@ class App extends React.Component {
     activeItem: 'home'
   }
 
+  // Managing NavBar state
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
+  // Fetching list of bikeshare networks from City Bikes API.
   componentDidMount() {
     fetch(API)
     .then(r => r.json())
@@ -27,8 +29,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
-        {/* <NetworkContainer />
-         <UserProfile /> */}
+        <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
+         {/* <UserProfile /> */}
       </div>
     );
   }
