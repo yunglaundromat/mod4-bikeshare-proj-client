@@ -58,11 +58,12 @@ class App extends React.Component {
       console.log(data);
       if (data.error) {
         console.error(data.error);
-      } else {  
+      } else {
         this.setState({loggedInUser: data});
       }
     })
     .catch(console.error)
+  }
 
   onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
     fetch(bikeNetworkBackend, {
@@ -91,7 +92,7 @@ class App extends React.Component {
           <UserProfile /> */}
 
       </div>
-    );
+    )
   }
 }
 
