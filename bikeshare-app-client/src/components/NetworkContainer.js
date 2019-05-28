@@ -6,10 +6,10 @@ import Network from './Network'
 class NetworkContainer extends React.Component {
 
   state={
-    currentCity: [],
+    currentCity: null,
     currentBikeShares: [],
-    selectedNetworkID: [],
-    selectedNetwork: []
+    selectedNetworkID: null,
+    selectedNetwork: null
   }
 
   // Sets state of current city and its corresponding bike share networks from dropdown menu click event
@@ -29,7 +29,7 @@ class NetworkContainer extends React.Component {
       .then(data => {
         this.setState({
           selectedNetwork: data.network,
-          currentCity: [],
+          currentCity: null,
           currentBikeShares: []
         }, () => console.log(this.state.selectedNetwork))
       })
@@ -47,7 +47,7 @@ class NetworkContainer extends React.Component {
         currentCity={this.state.currentCity}
         onBikeShareClick={this.onBikeShareClick}
         />
-        <Network selectedNetwork={this.state.selectedNetwork}/>
+        {this.state.selectedNetwork ? <Network selectedNetwork={this.state.selectedNetwork}/> : null}
       </div>
     )
   }

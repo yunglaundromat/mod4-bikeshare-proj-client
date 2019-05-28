@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from 'semantic-ui-react'
+import { Form, Message, Button, Divider, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 
 class CityForm extends React.Component {
 
@@ -14,11 +14,35 @@ class CityForm extends React.Component {
 
   render() {
     return (
-      <Form>
-        <Form.Group widths='equal'>
-          <Form.Select onChange={(e, target) => this.props.onCityClick(e, target)} fluid label='Destination' options={this.listCities()} placeholder='Find a bike sharing network by city!' />
-        </Form.Group>
-      </Form>
+
+      <Segment placeholder>
+        <Grid columns={2} stackable textAlign='center'>
+          <Divider vertical>Or</Divider>
+
+          <Grid.Row verticalAlign='middle'>
+            <Grid.Column>
+              <Header icon>
+                <Icon name='wpexplorer' />
+                Find a Bike Share Network by City
+              </Header>
+
+              <Form>
+                <Form.Group widths='equal'>
+                  <Form.Select onChange={(e, target) => this.props.onCityClick(e, target)} options={this.listCities()} placeholder='City' />
+                </Form.Group>
+              </Form>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Header icon>
+                <Icon name='map pin' />
+                Add New Network Entry
+              </Header>
+              <Button primary>Create</Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
     )
   }
 }

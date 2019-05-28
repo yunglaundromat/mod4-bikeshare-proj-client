@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
 
 export default class NavBar extends Component {
 
@@ -7,8 +7,8 @@ export default class NavBar extends Component {
     const { activeItem } = this.props
 
     return (
-      <div>
         <Menu pointing secondary>
+          <Menu.Item name='BikeShare International' active={activeItem === 'BikeShareInternational'} onClick={this.props.handleItemClick} />
           <Menu.Item name='home' active={activeItem === 'home'} onClick={this.props.handleItemClick} />
           <Menu.Item
             name='profile'
@@ -23,7 +23,6 @@ export default class NavBar extends Component {
             />
           </Menu.Menu>
         </Menu>
-      </div>
     )
   }
 }
