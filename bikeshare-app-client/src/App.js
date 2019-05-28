@@ -52,13 +52,21 @@ class App extends React.Component {
       headers:{ 'Content-Type': 'application/json'},
       body: JSON.stringify({name: username})
     })
-      .then(resp => resp.json())
-      .then(console.log)
+    .then(resp => resp.json())
+    .then(data => {
+      console.log(data);
+      if (data.error) {
+        console.error(data.error);
+      } else {  
+        this.setState({loggedInUser: data});
+      }
+    })
+    .catch(console.error)
 
   }
 
   render() {
-
+    console.log(this.state);
     return (
       <div className="App">
         <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem} loggedInUser={this.state.loggedInUser}/>
