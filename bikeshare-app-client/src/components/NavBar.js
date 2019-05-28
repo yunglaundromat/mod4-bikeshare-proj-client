@@ -8,7 +8,7 @@ export default class NavBar extends Component {
 
     return (
         <Menu pointing secondary>
-          <Menu.Item name='BikeShare International' active={activeItem === 'BikeShareInternational'} onClick={handleItemClick} />
+          <Menu.Item name='BikeShare International' active={activeItem === 'BikeShare International'} onClick={handleItemClick} />
           <Menu.Item name='home' active={activeItem === 'home'} onClick={handleItemClick} />
           <Menu.Item
             name='profile'
