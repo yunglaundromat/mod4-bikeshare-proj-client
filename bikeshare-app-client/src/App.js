@@ -42,12 +42,13 @@ class App extends React.Component {
       case "login":
         return <LoginForm onLoginSubmit={this.handleLoginSubmit}/>
       default:
-        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
+        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>
 
     }
   }
 
   handleLoginSubmit = (username) => {
+    this.setState({activeItem: "profile"})
     fetch(LOGIN_URL, {
       method: 'POST',
       headers:{ 'Content-Type': 'application/json'},
