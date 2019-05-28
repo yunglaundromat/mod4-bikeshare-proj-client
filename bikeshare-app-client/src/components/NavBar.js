@@ -17,7 +17,7 @@ export default class NavBar extends Component {
           />
           <Menu.Menu position='right'>
             <Menu.Item
-              name='logout'
+              name={this.props.loggedInUser ? "Logout" : "Login"}
               active={activeItem === 'logout'}
               onClick={this.props.handleItemClick}
             />

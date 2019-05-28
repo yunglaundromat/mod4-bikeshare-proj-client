@@ -10,7 +10,8 @@ class App extends React.Component {
 
   state={
     bikeShareNetworks: [],
-    activeItem: 'BikeShareInternational'
+    activeItem: 'BikeShareInternational',
+    loggedInUser: null
   }
 
   // Managing NavBar state
@@ -25,12 +26,27 @@ class App extends React.Component {
     })
   }
 
+  currentPage = () => {
+    switch (this.state.activeItem) {
+      case "profile":
+        return <UserProfile />
+      case "home":
+        return ;
+      default:
+        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
+
+    }
+  }
+
   render() {
+
     return (
       <div className="App">
-        <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
+        <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem} loggedInUser={this.state.loggedInUser}/>
+        {this.currentPage()}
+        {/*
         <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
-         {/* <UserProfile /> */}
+          <UserProfile /> */}
       </div>
     );
   }
