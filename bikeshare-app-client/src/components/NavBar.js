@@ -17,7 +17,7 @@ export default class NavBar extends Component {
           />
           <Menu.Menu position='right'>
             <Menu.Item
-              name={loggedInUser ? "Logout" : "Login"}
+              name={loggedInUser ? "logout" : "login"}
               active={activeItem === 'logout'}
               onClick={handleItemClick}
             />
