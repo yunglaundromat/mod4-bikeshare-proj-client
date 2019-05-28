@@ -10,7 +10,7 @@ class App extends React.Component {
 
   state={
     bikeShareNetworks: [],
-    activeItem: 'home'
+    activeItem: 'BikeShareInternational'
   }
 
   // Managing NavBar state
