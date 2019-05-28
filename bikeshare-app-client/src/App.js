@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar'
 import NetworkContainer from './components/NetworkContainer'
 import LoginForm from './components/LoginForm'
 import UserProfile from './components/UserProfile'
+
 const API = 'https://api.citybik.es/v2/networks'
+const bikeNetworkBackend = 'http://localhost:3000/bike_networks'
 
 const USER_URL = "http://localhost:3000/users";
 const LOGIN_URL = "http://localhost:3000/login";
@@ -63,6 +64,20 @@ class App extends React.Component {
     })
     .catch(console.error)
 
+  onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
+    fetch(bikeNetworkBackend, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Accepts": "application/json",
+			},
+			body: JSON.stringify({location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes})
+		})
+    .then(r => r.json())
+    .then(data => {
+      console.log(data)
+    })
+
   }
 
   render() {
@@ -74,6 +89,7 @@ class App extends React.Component {
         {/*
         <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
           <UserProfile /> */}
+
       </div>
     );
   }
