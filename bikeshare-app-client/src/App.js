@@ -7,7 +7,12 @@ import LoginForm from './components/LoginForm'
 import UserProfile from './components/UserProfile'
 const API = 'https://api.citybik.es/v2/networks'
 
+const USER_URL = "http://localhost:3000/users";
+const LOGIN_URL = "http://localhost:3000/login";
+
 class App extends React.Component {
+
+
 
   state={
     bikeShareNetworks: [],
@@ -34,11 +39,22 @@ class App extends React.Component {
       case "home":
         return ;
       case "login":
-        return <LoginForm />
+        return <LoginForm onLoginSubmit={this.handleLoginSubmit}/>
       default:
         return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
 
     }
+  }
+
+  handleLoginSubmit = (username) => {
+    fetch(LOGIN_URL, {
+      method: 'POST',
+      headers:{ 'Content-Type': 'application/json'},
+      body: JSON.stringify({name: username})
+    })
+      .then(resp => resp.json())
+      .then(console.log)
+
   }
 
   render() {

@@ -3,9 +3,14 @@ import { Form, Message, Button, Divider, Grid, Header, Icon, Segment } from 'sem
 
 const LoginForm = (props) => {
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onLoginSubmit(e.target.name.value);
+  }
+
   return (
     <div id="login-form">
-      <form>
+      <form onSubmit={handleSubmit}>
         <input placeholder="Enter Your Name!" name="name"/>
         <br/>
         <input type='submit' value="Sign In!" />
