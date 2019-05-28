@@ -25,14 +25,14 @@ class App extends React.Component {
     })
   }
 
-  onAddNetworkToProfile = (selectedNetwork) => {
+  onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
     fetch(bikeNetworkBackend, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				"Accepts": "application/json",
 			},
-			body: JSON.stringify(selectedNetwork)
+			body: JSON.stringify({location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes})
 		})
     .then(r => r.json())
     .then(data => {
