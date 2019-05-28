@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Message, Button, Divider, Grid, Header, Icon, Segment } from 'semantic-ui-react'
+import { Form, Button, Divider, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 
 class CityForm extends React.Component {
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, Image, Item, Label } from 'semantic-ui-react'
+import { Button, Icon, Item } from 'semantic-ui-react'
 
 class Network extends React.Component {
   render() {
@@ -13,8 +13,8 @@ class Network extends React.Component {
           </Item.Meta>
           <Item.Description></Item.Description>
           <Item.Extra>
-            <Button primary>
-              Add this bike share network to my favorites!
+            <Button primary onClick={() => this.props.onAddNetworkToProfile(this.props.selectedNetwork)}>
+              Add this network to my favorites!
               <Icon name='right chevron' />
             </Button>
           </Item.Extra>

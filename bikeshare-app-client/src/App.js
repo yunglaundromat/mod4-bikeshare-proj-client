@@ -1,9 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar'
 import NetworkContainer from './components/NetworkContainer'
-import UserProfile from './components/UserProfile'
+// import UserProfile from './components/UserProfile'
 const API = 'https://api.citybik.es/v2/networks'
 
 class App extends React.Component {
@@ -25,11 +24,18 @@ class App extends React.Component {
     })
   }
 
+  onAddNetworkToProfile = (selectedNetwork) => {
+    console.log("clicked!", selectedNetwork)
+  }
+
   render() {
     return (
       <div className="App">
         <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
-        <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
+        <NetworkContainer
+        bikeShareNetworks={this.state.bikeShareNetworks}
+        onAddNetworkToProfile={this.onAddNetworkToProfile}
+        />
          {/* <UserProfile /> */}
       </div>
     );

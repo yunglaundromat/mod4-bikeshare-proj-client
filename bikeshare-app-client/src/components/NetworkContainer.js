@@ -47,7 +47,7 @@ class NetworkContainer extends React.Component {
         currentCity={this.state.currentCity}
         onBikeShareClick={this.onBikeShareClick}
         />
-        {this.state.selectedNetwork ? <Network selectedNetwork={this.state.selectedNetwork}/> : null}
+        {this.state.selectedNetwork ? <Network selectedNetwork={this.state.selectedNetwork} onAddNetworkToProfile={this.props.onAddNetworkToProfile}/> : null}
       </div>
     )
   }
