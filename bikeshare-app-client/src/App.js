@@ -32,11 +32,11 @@ class App extends React.Component {
     .then(data => {
       this.setState({bikeShareNetworks: data.networks})
     })
-    fetch(`http://localhost:3000/users/${this.state.currentUser}`)
-    .then(r => r.json())
-    .then(data => {
-      this.setState({userFavorites: data.bike_networks, userInfo: data}, () => console.log("user favorites", this.state.userFavorites))
-    })
+    // fetch(`http://localhost:3000/users/${this.state.currentUser}`)
+    // .then(r => r.json())
+    // .then(data => {
+    //   this.setState({userFavorites: data.bike_networks, userInfo: data}, () => console.log("user favorites", this.state.userFavorites))
+    // })
   }
 
   currentPage = () => {

@@ -4,13 +4,13 @@ import UserFavoritesContainer from './UserFavoritesContainer'
 
 class UserProfile extends React.Component {
 
-  componentDidMount() {
-    fetch("http://localhost:3000/users/1")
-    .then(r => r.json())
-    .then(data => {
-      console.log(data)
-    })
-  }
+  // componentDidMount() {
+  //   fetch("http://localhost:3000/users/1")
+  //   .then(r => r.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  // }
 
   render() {
     return (
@@ -25,7 +25,7 @@ class UserProfile extends React.Component {
             <Statistic.Label>Favorited Networks</Statistic.Label>
           </Statistic>
           <Statistic>
-            <Statistic.Value>{this.props.userFavorites[this.props.userFavorites.length - 1].location}</Statistic.Value>
+            <Statistic.Value>{this.props.userFavorites.length > 0 ? this.props.userFavorites[this.props.userFavorites.length-1].location : "No"}</Statistic.Value>
             <Statistic.Label>Most Recent Trip</Statistic.Label>
           </Statistic>
         </Statistic.Group>
