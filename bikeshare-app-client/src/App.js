@@ -17,9 +17,10 @@ class App extends React.Component {
     currentUser: 1,
     bikeShareNetworks: [],
     activeItem: 'BikeShareInternational',
-    loggedInUser: null,
+    client: {loggedIn: false, bike_networks: []},
     userFavorites: [],
     userInfo: null
+
   }
   // Managing NavBar state
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -46,6 +47,9 @@ class App extends React.Component {
         return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>;
       case "login":
         return <LoginForm onLoginSubmit={this.handleLoginSubmit}/>
+      case "logout":
+        this.setState({activeItem: "BikeShareInternational", client: {loggedIn: false, bike_networks: []}});
+        break;
       default:
         return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>
 
@@ -53,7 +57,6 @@ class App extends React.Component {
   }
 
   handleLoginSubmit = (username) => {
-    this.setState({activeItem: "profile"})
     fetch(LOGIN_URL, {
       method: 'POST',
       headers:{ 'Content-Type': 'application/json'},
@@ -61,17 +64,18 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
-      console.log(data);
       if (data.error) {
         console.error(data.error);
       } else {
-        this.setState({loggedInUser: data});
+        this.setState({client: {...data, loggedIn: true}, activeItem: "BikeShareInternational" });
       }
     })
     .catch(console.error)
+
   }
 
   onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
+
     fetch(tripsBackend, {
 			method: "POST",
 			headers: {
@@ -92,7 +96,7 @@ class App extends React.Component {
     console.log(this.state);
     return (
       <div className="App">
-        <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem} loggedInUser={this.state.loggedInUser}/>
+        <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem} client={this.state.client}/>
         {this.currentPage()}
         {/*
         <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
