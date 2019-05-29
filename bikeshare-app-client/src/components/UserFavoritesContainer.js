@@ -6,7 +6,7 @@ class UserFavoritesContainer extends React.Component {
   render() {
     return (
     <Card.Group>
-      {this.props.userFavorites.map(favorite => <UserFavorite favorite={favorite} />)}
+      {this.props.userFavorites.map(favorite => <UserFavorite key={favorite.id} favorite={favorite} />)}
     </Card.Group>
     )
   }
