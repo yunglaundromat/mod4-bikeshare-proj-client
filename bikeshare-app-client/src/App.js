@@ -6,7 +6,7 @@ import LoginForm from './components/LoginForm'
 import UserProfile from './components/UserProfile'
 
 const API = 'https://api.citybik.es/v2/networks'
-const bikeNetworkBackend = 'http://localhost:3000/bike_networks'
+const tripsBackend = 'http://localhost:3000/trips'
 
 const USER_URL = "http://localhost:3000/users";
 const LOGIN_URL = "http://localhost:3000/login";
@@ -14,7 +14,7 @@ const LOGIN_URL = "http://localhost:3000/login";
 class App extends React.Component {
 
   state={
-    currentUser: null,
+    currentUser: 1,
     bikeShareNetworks: [],
     activeItem: 'BikeShareInternational',
     loggedInUser: null
@@ -66,13 +66,13 @@ class App extends React.Component {
   }
 
   onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
-    fetch(bikeNetworkBackend, {
+    fetch(tripsBackend, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				"Accepts": "application/json",
 			},
-			body: JSON.stringify({location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes})
+			body: JSON.stringify({bike_network: {location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes}, trip:{user_id: this.state.currentUser}})
 		})
     .then(r => r.json())
     .then(data => {
