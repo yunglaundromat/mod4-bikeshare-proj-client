@@ -65,7 +65,6 @@ class App extends React.Component {
     })
     .catch(console.error)
 
-
   }
 
   onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
