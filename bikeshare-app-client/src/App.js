@@ -42,7 +42,9 @@ class App extends React.Component {
   currentPage = () => {
     switch (this.state.activeItem) {
       case "profile":
-        return <UserProfile userFavorites={this.state.userFavorites} userInfo={this.state.userInfo}/>
+        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client}/>
+      case this.state.client.name:
+        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client}/>
       case "home":
         return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>;
       case "login":
@@ -51,7 +53,7 @@ class App extends React.Component {
         this.setState({activeItem: "BikeShareInternational", client: {loggedIn: false, bike_networks: []}});
         break;
       default:
-        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>
+        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile} userFavorites={this.state.userFavorites}/>
 
     }
   }
@@ -76,19 +78,26 @@ class App extends React.Component {
 
   onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
 
-    fetch(tripsBackend, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Accepts": "application/json",
-			},
-			body: JSON.stringify({bike_network: {location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes}, trip:{user_id: this.state.currentUser}})
-		})
-    .then(r => r.json())
-    .then(data => {
-      this.setState({userFavorites: [...this.state.userFavorites, data], activeItem: "profile" })
-      console.log(data)
-    })
+    //change button to added!
+    if (this.state.client.loggedIn) {
+      fetch(tripsBackend, {
+  			method: "POST",
+  			headers: {
+  				"Content-Type": "application/json",
+  				"Accepts": "application/json",
+  			},
+  			body: JSON.stringify({bike_network: {location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes}, trip:{user_id: this.state.currentUser}})
+  		})
+      .then(r => r.json())
+      .then(data => {
+        this.setState({userFavorites: [...this.state.userFavorites, data], activeItem: "profile" })
+        console.log("DATA!", data)
+      })
+    } else {
+      this.setState({userFavorites: [...this.state.userFavorites, {...selectedNetwork, free_bikes: totalFreeBikes}]})
+    }
+
+
 
   }
 

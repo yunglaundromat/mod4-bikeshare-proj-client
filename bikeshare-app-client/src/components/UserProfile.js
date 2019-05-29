@@ -17,7 +17,7 @@ class UserProfile extends React.Component {
       <Fragment>
         <Header as='h2'>
           <Icon name='desktop' />
-          <Header.Content>{this.props.userInfo.name}'s dashboard</Header.Content>
+          <Header.Content>{this.props.client.loggedIn ? this.props.client.name : "Your"}'s dashboard</Header.Content>
         </Header>
         <Statistic.Group widths="two">
           <Statistic>
@@ -31,7 +31,7 @@ class UserProfile extends React.Component {
         </Statistic.Group>
         <Header as='h2'>
           <Icon name='gratipay' />
-          <Header.Content>{this.props.userInfo.name}'s favorite networks </Header.Content>
+          <Header.Content>{this.props.client.loggedIn ? this.props.client.name : "Your"}'s favorite networks </Header.Content>
         </Header>
         <UserFavoritesContainer userFavorites={this.props.userFavorites} />
       </Fragment>
