@@ -1,5 +1,6 @@
-import React from 'react'
-import { Statistic, Icon } from 'semantic-ui-react'
+import React, { Fragment } from 'react'
+import { Statistic, Header, Icon } from 'semantic-ui-react'
+import UserFavoritesContainer from './UserFavoritesContainer'
 
 class UserProfile extends React.Component {
 
@@ -13,39 +14,27 @@ class UserProfile extends React.Component {
 
   render() {
     return (
-      <Statistic.Group widths="five">
-        <Statistic>
-          <Statistic.Value></Statistic.Value>
-          <Statistic.Label>Longitude</Statistic.Label>
-        </Statistic>
-
-        <Statistic>
-          <Statistic.Value></Statistic.Value>
-          <Statistic.Label>Latitude</Statistic.Label>
-        </Statistic>
-
-        <Statistic>
-          <Statistic.Value>
-            <Icon name='home' />
-
-          </Statistic.Value>
-          <Statistic.Label>Docks/Stations</Statistic.Label>
-        </Statistic>
-
-        <Statistic>
-          <Statistic.Value>
-
-          </Statistic.Value>
-          <Statistic.Label>Available Bikes</Statistic.Label>
-        </Statistic>
-
-        <Statistic>
-          <Statistic.Value>
-
-          </Statistic.Value>
-          <Statistic.Label>Empty Docking Slots</Statistic.Label>
-        </Statistic>
-      </Statistic.Group>
+      <Fragment>
+        <Header as='h2'>
+          <Icon name='desktop' />
+          <Header.Content>{this.props.userInfo.name}'s dashboard</Header.Content>
+        </Header>
+        <Statistic.Group widths="two">
+          <Statistic>
+            <Statistic.Value>{this.props.userFavorites.length}</Statistic.Value>
+            <Statistic.Label>Favorited Networks</Statistic.Label>
+          </Statistic>
+          <Statistic>
+            <Statistic.Value>{this.props.userFavorites[this.props.userFavorites.length - 1].location}</Statistic.Value>
+            <Statistic.Label>Most Recent Trip</Statistic.Label>
+          </Statistic>
+        </Statistic.Group>
+        <Header as='h2'>
+          <Icon name='gratipay' />
+          <Header.Content>{this.props.userInfo.name}'s favorite networks </Header.Content>
+        </Header>
+        <UserFavoritesContainer userFavorites={this.props.userFavorites} />
+      </Fragment>
     )
   }
 }

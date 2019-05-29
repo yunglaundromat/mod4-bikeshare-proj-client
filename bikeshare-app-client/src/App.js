@@ -17,9 +17,10 @@ class App extends React.Component {
     currentUser: 1,
     bikeShareNetworks: [],
     activeItem: 'BikeShareInternational',
-    loggedInUser: null
+    loggedInUser: null,
+    userFavorites: [],
+    userInfo: null
   }
-
   // Managing NavBar state
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -30,12 +31,17 @@ class App extends React.Component {
     .then(data => {
       this.setState({bikeShareNetworks: data.networks})
     })
+    fetch(`http://localhost:3000/users/${this.state.currentUser}`)
+    .then(r => r.json())
+    .then(data => {
+      this.setState({userFavorites: data.bike_networks, userInfo: data}, () => console.log("user favorites", this.state.userFavorites))
+    })
   }
 
   currentPage = () => {
     switch (this.state.activeItem) {
       case "profile":
-        return <UserProfile />
+        return <UserProfile userFavorites={this.state.userFavorites} userInfo={this.state.userInfo}/>
       case "home":
         return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>;
       case "login":
