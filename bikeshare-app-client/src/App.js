@@ -82,6 +82,7 @@ class App extends React.Component {
 		})
     .then(r => r.json())
     .then(data => {
+      this.setState({userFavorites: [...this.state.userFavorites, data], activeItem: "profile" })
       console.log(data)
     })
 
