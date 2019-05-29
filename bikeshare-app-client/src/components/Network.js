@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Button, Icon, Item, Statistic } from 'semantic-ui-react'
+import NetworkStationContainer from './NetworkStationContainer'
 
 class Network extends React.Component {
 
@@ -81,6 +82,7 @@ class Network extends React.Component {
           </Item.Content>
         </Item>
       </Item.Group>
+      <NetworkStationContainer selectedNetwork={this.props.selectedNetwork}/>
     </Fragment>
 
     )
