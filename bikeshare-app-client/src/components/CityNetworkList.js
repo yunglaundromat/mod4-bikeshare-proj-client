@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Icon } from 'semantic-ui-react'
+import { Header, Icon, Card } from 'semantic-ui-react'
 import NetworkListCard from './NetworkListCard'
 
 class CityNetworkList extends React.Component {
@@ -13,8 +13,9 @@ class CityNetworkList extends React.Component {
             <Icon name='bicycle' circular />
             <Header.Content>Showing all results for {this.props.currentCity}</Header.Content>
           </Header>
-
+          <Card.Group>
            {this.props.currentBikeShares.map(network => <NetworkListCard key={network.name} network={network} onBikeShareClick={this.props.onBikeShareClick} />)}
+          </Card.Group>
         </div>
            : null }
 

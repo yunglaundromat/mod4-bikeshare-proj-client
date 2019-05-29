@@ -13,9 +13,8 @@ const LOGIN_URL = "http://localhost:3000/login";
 
 class App extends React.Component {
 
-
-
   state={
+    currentUser: null,
     bikeShareNetworks: [],
     activeItem: 'BikeShareInternational',
     loggedInUser: null
@@ -38,7 +37,7 @@ class App extends React.Component {
       case "profile":
         return <UserProfile />
       case "home":
-        return ;
+        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>;
       case "login":
         return <LoginForm onLoginSubmit={this.handleLoginSubmit}/>
       default:

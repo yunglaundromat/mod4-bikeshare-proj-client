@@ -36,7 +36,7 @@ class CityForm extends React.Component {
             <Grid.Column>
               <Header icon>
                 <Icon name='map pin' />
-                Add New Network Entry
+                Don't see what you're looking for? Add a new network entry to your favorites.
               </Header>
               <Button primary>Create</Button>
             </Grid.Column>
