@@ -38,7 +38,7 @@ class App extends React.Component {
       case this.state.client.name:
         return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client}/>
       case "home":
-        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>;
+        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile} userFavorites={this.state.userFavorites}/>;
       case "login":
         return <LoginForm onLoginSubmit={this.handleLoginSubmit}/>
       case "logout":
