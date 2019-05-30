@@ -32,19 +32,25 @@ class App extends React.Component {
   }
 
   deleteFavorite = (network_id) => {
-    fetch(`http://localhost:3000/trips/0`, {
-    method: 'DELETE',
-    headers: {'Content-Type': 'application/json', "Accepts": "application/json"},
-    body: JSON.stringify({
-      user_id: this.state.client.id,
-      bike_network_id: network_id
+    if (this.state.client.loggedIn) {
+      fetch(`http://localhost:3000/trips/0`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json', "Accepts": "application/json"},
+      body: JSON.stringify({
+        user_id: this.state.client.id,
+        bike_network_id: network_id
+        })
       })
-    })
-    .then(res => res.json())
-    .then(data => {
+      .then(res => res.json())
+      .then(data => {
+        let newFavorites = this.state.userFavorites.filter(favorite => favorite.id !== network_id)
+        this.setState({userFavorites: newFavorites})
+      })
+    } else {
       let newFavorites = this.state.userFavorites.filter(favorite => favorite.id !== network_id)
       this.setState({userFavorites: newFavorites})
-    })
+    }
+
   }
 
   currentPage = () => {
