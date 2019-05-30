@@ -58,6 +58,7 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
+      console.log("resp", data);
       if (data.error) {
         console.error(data.error);
       } else {

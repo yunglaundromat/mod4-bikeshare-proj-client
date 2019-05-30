@@ -9,17 +9,18 @@ const LoginForm = (props) => {
   }
 
   return (
-    <div id="login-form">
-      <form onSubmit={handleSubmit}>
-        <input placeholder="Enter Your Name!" name="name"/>
-        <br/>
-        <input type='submit' value="Sign In!" />
-      </form>
-    </div>
+    <Form onSubmit={handleSubmit}>
+       <Form.Field>
+         <label >Welcome to BikeShareInternational! Please create a username.</label>
+         <input name="name" placeholder='Enter your name' />
+       </Form.Field>
+       <Button type='submit' >Sign In!</Button>
+     </Form>
   )
 }
 
-export default LoginForm
+
+export default LoginForm;
 
 // <Form>
 //   <Form.Group widths='equal'>
