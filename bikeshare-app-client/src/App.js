@@ -69,7 +69,12 @@ class App extends React.Component {
       if (data.error) {
         console.error(data.error);
       } else {
-        this.setState({client: {...data, loggedIn: true}, activeItem: "BikeShareInternational" });
+        console.log("logged in data:", data);
+        this.setState({
+          client: {...data, loggedIn: true},
+          activeItem: "BikeShareInternational",
+          userFavorites: data.bike_networks
+         });
       }
     })
     .catch(console.error)
@@ -86,7 +91,7 @@ class App extends React.Component {
   				"Content-Type": "application/json",
   				"Accepts": "application/json",
   			},
-  			body: JSON.stringify({bike_network: {location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes}, trip:{user_id: this.state.currentUser}})
+  			body: JSON.stringify({bike_network: {location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes}, trip: {user_id: this.state.client.id}})
   		})
       .then(r => r.json())
       .then(data => {
