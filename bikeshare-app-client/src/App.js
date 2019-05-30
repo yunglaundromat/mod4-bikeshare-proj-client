@@ -31,12 +31,28 @@ class App extends React.Component {
     })
   }
 
+  deleteFavorite = (network_id) => {
+    fetch(`http://localhost:3000/trips/0`, {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json', "Accepts": "application/json"},
+    body: JSON.stringify({
+      user_id: this.state.client.id,
+      bike_network_id: network_id
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      let newFavorites = this.state.userFavorites.filter(favorite => favorite.id !== network_id)
+      this.setState({userFavorites: newFavorites})
+    })
+  }
+
   currentPage = () => {
     switch (this.state.activeItem) {
       case "profile":
-        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client}/>
+        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client} deleteFavorite={this.deleteFavorite}/>
       case this.state.client.name:
-        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client}/>
+        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client} deleteFavorite={this.deleteFavorite}/>
       case "home":
         return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile} userFavorites={this.state.userFavorites}/>;
       case "login":
@@ -58,6 +74,7 @@ class App extends React.Component {
     })
     .then(resp => resp.json())
     .then(data => {
+      console.log("resp", data);
       if (data.error) {
         console.error(data.error);
       } else {
