@@ -33,7 +33,7 @@ class UserProfile extends React.Component {
           <Icon name='gratipay' />
           <Header.Content>{this.props.client.loggedIn ? this.props.client.name : "Your"}'s favorite networks </Header.Content>
         </Header>
-        <UserFavoritesContainer userFavorites={this.props.userFavorites} />
+        <UserFavoritesContainer userFavorites={this.props.userFavorites} deleteFavorite={this.props.deleteFavorite}/>
       </Fragment>
     )
   }

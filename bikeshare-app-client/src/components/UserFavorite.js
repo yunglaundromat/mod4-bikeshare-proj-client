@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Button } from 'semantic-ui-react'
 
 class UserFavorite extends React.Component {
   render() {
@@ -11,6 +11,9 @@ class UserFavorite extends React.Component {
         <Card.Content extra>
           <Icon name='user' />
           {this.props.favorite.name}
+          <br></br>
+          <br></br>
+          <Button onClick={() => this.props.deleteFavorite(this.props.favorite.id)}  content='Delete favorite' primary />
         </Card.Content>
       </Card>
     )
