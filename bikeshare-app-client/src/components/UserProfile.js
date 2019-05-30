@@ -25,8 +25,7 @@ class UserProfile extends React.Component {
             <Statistic.Label>Favorited Networks</Statistic.Label>
           </Statistic>
           <Statistic>
-            <Statistic.Value>{this.props.userFavorites.length > 0 ? this.props.userFavorites[this.props.userFavorites.length-1].location : "No"}</Statistic.Value>
-            <Statistic.Label>Most Recent Trip</Statistic.Label>
+
           </Statistic>
         </Statistic.Group>
         <Header as='h2'>

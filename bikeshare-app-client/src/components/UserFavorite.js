@@ -3,6 +3,7 @@ import { Card, Icon } from 'semantic-ui-react'
 
 class UserFavorite extends React.Component {
   render() {
+    console.log("faves", this.props.favorite);
     return (
       <Card>
         <Card.Content header={this.props.favorite.name} />

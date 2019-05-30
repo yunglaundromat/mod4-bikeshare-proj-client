@@ -94,7 +94,7 @@ class App extends React.Component {
         console.log("DATA!", data)
       })
     } else {
-      this.setState({userFavorites: [...this.state.userFavorites, {...selectedNetwork, free_bikes: totalFreeBikes}]})
+      this.setState({userFavorites: [...this.state.userFavorites, {...selectedNetwork, location: selectedNetwork.location.city, free_bikes: totalFreeBikes}]})
     }
 
 

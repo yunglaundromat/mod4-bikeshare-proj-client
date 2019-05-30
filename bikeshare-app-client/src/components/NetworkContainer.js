@@ -36,8 +36,12 @@ class NetworkContainer extends React.Component {
   }
 
   isFavorited = () => {
-    // debugger
-    return !!this.props.userFavorites.find(network => network.id === this.state.selectedNetwork.id)
+    debugger
+    if (this.props.userFavorites > 0) {
+      return !!this.props.userFavorites.find(network => network.id === this.state.selectedNetwork.id)
+    } else {
+      return null
+    }
   }
 
   render() {
