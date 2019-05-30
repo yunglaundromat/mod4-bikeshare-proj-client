@@ -14,9 +14,9 @@ class NetworkContainer extends React.Component {
 
   // Sets state of current city and its corresponding bike share networks from dropdown menu click event
   onCityClick = (e, target) => {
-    this.setState({currentCity: target.value})
+    // this.setState({currentCity: target.value})
     let filteredCities = this.props.bikeShareNetworks.filter(network => network.location.city === target.value)
-    this.setState({currentBikeShares: filteredCities})
+    this.setState({currentBikeShares: filteredCities, currentCity: target.value, selectedNetwork: null})
   }
 
   onBikeShareClick = (e, target) => {
@@ -35,6 +35,15 @@ class NetworkContainer extends React.Component {
       })
   }
 
+  isFavorited = () => {
+    // debugger
+    if (this.props.userFavorites.length > 0) {
+      return !!this.props.userFavorites.find(network => network.id === this.state.selectedNetwork.id)
+    } else {
+      return null
+    }
+  }
+
   render() {
     return (
       <div>
@@ -47,7 +56,7 @@ class NetworkContainer extends React.Component {
         currentCity={this.state.currentCity}
         onBikeShareClick={this.onBikeShareClick}
         />
-        {this.state.selectedNetwork ? <Network selectedNetwork={this.state.selectedNetwork} onAddNetworkToProfile={this.props.onAddNetworkToProfile}/> : null}
+        {this.state.selectedNetwork ? <Network selectedNetwork={this.state.selectedNetwork} onAddNetworkToProfile={this.props.onAddNetworkToProfile} favorited={this.isFavorited()}/> : null}
       </div>
     )
   }

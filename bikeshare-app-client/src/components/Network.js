@@ -74,10 +74,18 @@ class Network extends React.Component {
               </Statistic>
             </Statistic.Group>
             <Item.Extra>
-              <Button primary onClick={() => this.props.onAddNetworkToProfile(this.props.selectedNetwork, this.getTotalFreeBikes(this.props.selectedNetwork))}>
-                Add this network to my favorites!
-                <Icon name='right chevron' />
-              </Button>
+              {this.props.favorited ?
+                <Button positive disabled onClick={() => this.props.onAddNetworkToProfile(this.props.selectedNetwork, this.getTotalFreeBikes(this.props.selectedNetwork))}>
+                  Network is added to favorites!
+                  <Icon name='right chevron' />
+                </Button>
+                :
+                <Button primary onClick={() => this.props.onAddNetworkToProfile(this.props.selectedNetwork, this.getTotalFreeBikes(this.props.selectedNetwork))}>
+                  Add this network to my favorites!
+                  <Icon name='right chevron' />
+                </Button>
+              }
+
             </Item.Extra>
           </Item.Content>
         </Item>

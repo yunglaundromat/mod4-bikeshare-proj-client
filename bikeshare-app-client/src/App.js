@@ -5,8 +5,8 @@ import NetworkContainer from './components/NetworkContainer'
 import LoginForm from './components/LoginForm'
 import UserProfile from './components/UserProfile'
 
-const API = 'https://api.citybik.es/v2/networks'
-const tripsBackend = 'http://localhost:3000/trips'
+const CITYBIKES_API = 'https://api.citybik.es/v2/networks'
+const TRIPS_URL = 'http://localhost:3000/trips'
 
 const USER_URL = "http://localhost:3000/users";
 const LOGIN_URL = "http://localhost:3000/login";
@@ -14,35 +14,29 @@ const LOGIN_URL = "http://localhost:3000/login";
 class App extends React.Component {
 
   state={
-    currentUser: 1,
     bikeShareNetworks: [],
     activeItem: 'BikeShareInternational',
     client: {loggedIn: false, bike_networks: []},
-    userFavorites: [],
-    userInfo: null
-
+    userFavorites: []
   }
   // Managing NavBar state
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   // Fetching list of bikeshare networks from City Bikes API.
   componentDidMount() {
-    fetch(API)
+    fetch(CITYBIKES_API)
     .then(r => r.json())
     .then(data => {
       this.setState({bikeShareNetworks: data.networks})
-    })
-    fetch(`http://localhost:3000/users/${this.state.currentUser}`)
-    .then(r => r.json())
-    .then(data => {
-      this.setState({userFavorites: data.bike_networks, userInfo: data}, () => console.log("user favorites", this.state.userFavorites))
     })
   }
 
   currentPage = () => {
     switch (this.state.activeItem) {
       case "profile":
-        return <UserProfile userFavorites={this.state.userFavorites} userInfo={this.state.userInfo}/>
+        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client}/>
+      case this.state.client.name:
+        return <UserProfile userFavorites={this.state.userFavorites} client={this.state.client}/>
       case "home":
         return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>;
       case "login":
@@ -51,7 +45,7 @@ class App extends React.Component {
         this.setState({activeItem: "BikeShareInternational", client: {loggedIn: false, bike_networks: []}});
         break;
       default:
-        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile}/>
+        return <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks} onAddNetworkToProfile={this.onAddNetworkToProfile} userFavorites={this.state.userFavorites}/>
 
     }
   }
@@ -67,7 +61,12 @@ class App extends React.Component {
       if (data.error) {
         console.error(data.error);
       } else {
-        this.setState({client: {...data, loggedIn: true}, activeItem: "BikeShareInternational" });
+        console.log("logged in data:", data);
+        this.setState({
+          client: {...data, loggedIn: true},
+          activeItem: "BikeShareInternational",
+          userFavorites: data.bike_networks
+         });
       }
     })
     .catch(console.error)
@@ -76,19 +75,23 @@ class App extends React.Component {
 
   onAddNetworkToProfile = (selectedNetwork, totalFreeBikes) => {
 
-    fetch(tripsBackend, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Accepts": "application/json",
-			},
-			body: JSON.stringify({bike_network: {location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes}, trip:{user_id: this.state.currentUser}})
-		})
-    .then(r => r.json())
-    .then(data => {
-      this.setState({userFavorites: [...this.state.userFavorites, data], activeItem: "profile" })
-      console.log(data)
-    })
+    if (this.state.client.loggedIn) {
+      fetch(TRIPS_URL, {
+  			method: "POST",
+  			headers: {
+  				"Content-Type": "application/json",
+  				"Accepts": "application/json",
+  			},
+  			body: JSON.stringify({bike_network: {location: selectedNetwork.location.city, name: selectedNetwork.name, company: selectedNetwork.company[0], num_of_stations: selectedNetwork.stations.length, free_bikes: totalFreeBikes}, trip: {user_id: this.state.client.id}})
+  		})
+      .then(r => r.json())
+      .then(data => {
+        this.setState({userFavorites: [...this.state.userFavorites, data], activeItem: "profile" })
+        console.log("DATA!", data)
+      })
+    } else {
+      this.setState({userFavorites: [...this.state.userFavorites, {...selectedNetwork, location: selectedNetwork.location.city, free_bikes: totalFreeBikes}]})
+    }
 
   }
 
@@ -98,9 +101,6 @@ class App extends React.Component {
       <div className="App">
         <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem} client={this.state.client}/>
         {this.currentPage()}
-        {/*
-        <NetworkContainer bikeShareNetworks={this.state.bikeShareNetworks}/>
-          <UserProfile /> */}
 
       </div>
     )
